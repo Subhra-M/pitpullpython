@@ -1,18 +1,16 @@
-# Use a lightweight Python base image
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
-
-# Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy code
 COPY app.py .
 
-# Expose port
-EXPOSE 8080
+# Create /workspace and give write permissions to group 0 (root group)
+RUN mkdir -p /workspace && chmod -R g+rwX /workspace
 
-# Start FastAPI using Uvicorn
+# Also set the root group as the owner
+RUN chgrp -R 0 /workspace
+
+EXPOSE 8080
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
