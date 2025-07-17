@@ -5,7 +5,7 @@ import requests
 app = FastAPI()
 @app.get("/test-function")
 def method_abc (self):
-        print("I am in testing gitpull. ")
+    print("I am in testing gitpull. ")
 
 @app.post("/pull-public-repo-unzip")
 def pull_public_repo_unzip(
